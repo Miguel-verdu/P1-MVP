@@ -111,6 +111,27 @@ Análisis:
  
 **f) Accesibilidad y seguridad. ¿Cómo garantizas que la documentación en GitHub Pages es accesible públicamente pero el código fuente solo es accesible para personal autorizado?**
 
+┌─────────────────────────────────────┐
+│     Repositorio PRIVADO/PÚBLICO     │
+│  (código fuente con control acceso) │
+└───────────────┬─────────────────────┘
+                │
+                ▼
+┌─────────────────────────────────────┐
+│     GitHub Pages PÚBLICO SIEMPRE    │
+│  (documentación HTML accesible)     │
+└─────────────────────────────────────┘
+
+### Mecanismos:
+
+* Repositorio puede ser privado: Solo equipo autorizado ve código
+
+* GitHub Pages siempre público: Documentación accesible globalmente
+
+* GITHUB_TOKEN con scope limitado: Solo puede modificar el repo actual
+
+* Separación ramas: main (código) ≠ gh-pages (docs)
+
 
 **g) Instalación/uso documentados. Indica dónde en el README.md explicas cómo acceder a la documentación publicada en GitHub Pages y dónde detallas las herramientas y comandos usados para generarla.**
 
