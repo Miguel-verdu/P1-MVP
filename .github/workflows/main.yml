@@ -84,7 +84,7 @@ jobs:
       - name: Generate HTML documentation
         run: |
           mkdir -p docs_html
-          pdoc --html --output-dir docs_html src  # Ajusta 'src' al directorio con tu código fuente
+          pdoc --output-dir docs_html src  # Ajusta 'src' al directorio con tu código fuente
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
