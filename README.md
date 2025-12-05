@@ -54,7 +54,7 @@ Un breve ejemplo en el archivo main.py sería lo siguiente:
         
 **c) Publicación en GitHub Pages.**
 
-*Pasos clave:
+## Pasos clave:
 
 Acción peaceiris/actions-gh-pages@v3: Sube contenido a la rama gh-pages
 
