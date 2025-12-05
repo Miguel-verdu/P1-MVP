@@ -33,8 +33,23 @@ jobs:
 
       - name: Generar documentación HTML con pdoc
         run: |
+          # Eliminar el __init__.py vacío temporalmente para que pdoc funcione mejor
+          if [ -f "src/__init__.py" ] && [ ! -s "src/__init__.py" ]; then
+            mv src/__init__.py src/__init__.py.backup
+          fi
+          
           mkdir -p docs_html
-          pdoc --output-dir docs_html src/main.py src/update_readme.py
+          # Generar documentación para cada módulo individualmente
+          pdoc --html --output-dir docs_html src/main.py src/update_readme.py
+          
+          # Restaurar __init__.py si existía
+          if [ -f "src/__init__.py.backup" ]; then
+            mv src/__init__.py.backup src/__init__.py
+          fi
+          
+          # Verificar si se generó documentación
+          echo "Verificando documentación generada:"
+          ls -la docs_html/
 
       - name: Sincronizar rama y subir cambios
         env:
@@ -49,6 +64,10 @@ jobs:
           git rebase origin/main || (git rebase --abort && exit 1)
           if git stash list | grep -q "ci-temp-stash"; then git stash pop || exit 1; fi
 
+          # Añadir la documentación generada
+          if [ -d "docs_html" ]; then
+            git add docs_html/
+          fi
           git add -A
           git diff --cached --quiet || git commit -m "Update README y documentación"
           git push origin HEAD:main
@@ -75,10 +94,60 @@ jobs:
       - name: Generate HTML documentation
         run: |
           mkdir -p docs_html
-          pdoc --output-dir docs_html src/main.py src/update_readme.py
+          # Eliminar __init__.py vacío temporalmente
+          if [ -f "src/__init__.py" ] && [ ! -s "src/__init__.py" ]; then
+            mv src/__init__.py src/__init__.py.backup
+          fi
+          
+          # Generar documentación con formato HTML explícito
+          pdoc --html --output-dir docs_html src/main.py src/update_readme.py
+          
+          # Restaurar __init__.py
+          if [ -f "src/__init__.py.backup" ]; then
+            mv src/__init__.py.backup src/__init__.py
+          fi
+          
+          # Crear índice si no existe
+          if [ ! -f "docs_html/index.html" ]; then
+            # Crear un índice simple que liste los módulos
+            cat > docs_html/index.html << 'EOF'
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Documentación del Proyecto</title>
+                <style>
+                    body { font-family: Arial, sans-serif; margin: 40px; }
+                    h1 { color: #333; }
+                    ul { list-style-type: none; padding: 0; }
+                    li { margin: 10px 0; }
+                    a { text-decoration: none; color: #0366d6; }
+                    a:hover { text-decoration: underline; }
+                </style>
+            </head>
+            <body>
+                <h1>Documentación del Proyecto</h1>
+                <p>Selecciona un módulo para ver su documentación:</p>
+                <ul>
+            EOF
+            
+            # Añadir enlaces a los módulos documentados
+            for html_file in docs_html/*.html; do
+              if [ "$(basename "$html_file")" != "index.html" ]; then
+                module_name=$(basename "$html_file" .html)
+                echo "                    <li><a href=\"$module_name.html\">$module_name</a></li>" >> docs_html/index.html
+              fi
+            done
+            
+            cat >> docs_html/index.html << 'EOF'
+                </ul>
+            </body>
+            </html>
+            EOF
+          fi
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs_html
+          publish_dir: ./docs_html
+          force_orphan: true
