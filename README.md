@@ -127,7 +127,8 @@ on:
 Una posible versión base del fichero README.md sería el siguiente (aunque finalmente será mas completo): 
 
 
-```markdown
+```
+
 # Mi Proyecto con GitHub Actions
 
 Este proyecto sirve para aprender a usar GitHub Actions 🚀
