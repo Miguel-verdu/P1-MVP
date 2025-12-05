@@ -21,10 +21,10 @@
 
 Cada vez que se sube un código, el workflow automáticamente genera y publica documentación web.
 
-##📅 ¿Cuándo se activa?
+## 📅 ¿Cuándo se activa?
 Al hacer push a la rama main o manualmente desde la web de GitHub
 
-##🔧 ¿Qué hace?:
+## 🔧 ¿Qué hace?:
 
 1️⃣ Prepara el entorno
 Descarga el código
