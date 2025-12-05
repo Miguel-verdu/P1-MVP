@@ -34,7 +34,10 @@ jobs:
       - name: Generar documentación HTML con pdoc
         run: |
           mkdir -p docs_html
-          pdoc --html --output-dir docs_html src  # Ajusta 'src' al directorio con tu código fuente
+          # Detectar todos los módulos .py en el directorio raíz
+          MODULES=$(ls *.py | sed 's/.py$//')
+          echo "Documentando módulos: $MODULES"
+          pdoc --output-dir docs_html $MODULES
 
       - name: Sincronizar rama, guardar cambios locales, reorganizar (rebase), confirmar (commit) y enviar (push).
         env:
@@ -42,23 +45,17 @@ jobs:
         run: |
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          # Usar la URL respaldada por token para que fetch/rebase/push estén autenticados
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
 
-          # Guardar en stash cualquier cambio sin stage/rastrear para que el rebase se ejecute limpiamente.
-          # Usar un mensaje de stash único para detectarlo posteriormente.
           git stash push --include-untracked -m "ci-temp-stash" || true
 
-          # Actualizar origin/main y reorganizar (rebase) los commits locales (si existen) sobre ella.
           git fetch origin main
           git rebase origin/main || (git rebase --abort && { echo "Rebase failed"; exit 1; })
 
-          # Restaurar los cambios guardados en stash (si existen). Si el pop falla por conflictos, fallar el job para que se requiera intervención del usuario.
           if git stash list | grep -q "ci-temp-stash"; then
             git stash pop || (echo "Conflict when unstashing; aborting." && exit 1)
           fi
 
-          # Confirmar (commit) cualquier cambio producido por el script (si existen) y enviarlos (push).
           git add -A
           git diff --cached --quiet || git commit -m "Update README con estado de tests"
           git push origin HEAD:main
@@ -67,13 +64,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: test-and-update
     permissions:
-      contents: read  # just for checkout
-      pages: write    # to deploy to Pages
+      contents: read
+      pages: write
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Configure Python (for pdoc compatibility, if ever needed)
+      - name: Configure Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
@@ -84,7 +82,9 @@ jobs:
       - name: Generate HTML documentation
         run: |
           mkdir -p docs_html
-          pdoc --output-dir docs_html src  # Ajusta 'src' al directorio con tu código fuente
+          MODULES=$(ls *.py | sed 's/.py$//')
+          echo "Documentando módulos: $MODULES"
+          pdoc --output-dir docs_html $MODULES
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
