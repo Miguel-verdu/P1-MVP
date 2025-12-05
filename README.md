@@ -94,3 +94,7 @@ Este proyecto sirve para aprender a usar GitHub Actions 🚀
 
 ## Estado de los tests
 ✅ Tests correctos
+
+
+## Historial de tests
+- 2025-12-05 04:54:10: ✅ Tests correctos
