@@ -34,7 +34,7 @@ jobs:
       - name: Generar documentación HTML con pdoc
         run: |
           mkdir -p docs_html
-          pdoc --output-dir docs_html src
+          pdoc --output-dir docs_html src/main.py src/update_readme.py
 
       - name: Sincronizar rama y subir cambios
         env:
@@ -75,7 +75,7 @@ jobs:
       - name: Generate HTML documentation
         run: |
           mkdir -p docs_html
-          pdoc --output-dir docs_html src
+          pdoc --output-dir docs_html src/main.py src/update_readme.py
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
