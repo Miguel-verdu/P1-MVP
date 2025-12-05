@@ -92,7 +92,11 @@ Un breve ejemplo en el archivo main.py sería lo siguiente:
  
 **e) Control de versiones. Muestra mensajes de commit que evidencien la configuración del workflow de publicación.**
 
+### Mensajes de commit generados por el workflow:
 
+```"Update README y documentación [skip ci]"```
+
+ 
 **f) Accesibilidad y seguridad. ¿Cómo garantizas que la documentación en GitHub Pages es accesible públicamente pero el código fuente solo es accesible para personal autorizado?**
 
 
