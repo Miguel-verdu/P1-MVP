@@ -2,7 +2,7 @@
 
 ## Carta de presentación
 
-* Comprender la estructura de un workflow (`on`, `jobs`, `steps`).
+
 
   * Herramienta usada para generar documentación HTML y comandos ejecutados:
   La herrimienta que utilicé para la documentación fue pdoc.
