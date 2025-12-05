@@ -29,17 +29,14 @@ jobs:
           pip install pdoc
 
       - name: Ejecutar script de tests y actualizar README
-        run: python update_readme.py
+        run: python src/update_readme.py
 
       - name: Generar documentación HTML con pdoc
         run: |
           mkdir -p docs_html
-          # Detectar todos los módulos .py en el directorio raíz
-          MODULES=$(ls *.py | sed 's/.py$//')
-          echo "Documentando módulos: $MODULES"
-          pdoc --output-dir docs_html $MODULES
+          pdoc --output-dir docs_html src
 
-      - name: Sincronizar rama, guardar cambios locales, reorganizar (rebase), confirmar (commit) y enviar (push).
+      - name: Sincronizar rama y subir cambios
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -48,16 +45,12 @@ jobs:
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
 
           git stash push --include-untracked -m "ci-temp-stash" || true
-
           git fetch origin main
-          git rebase origin/main || (git rebase --abort && { echo "Rebase failed"; exit 1; })
-
-          if git stash list | grep -q "ci-temp-stash"; then
-            git stash pop || (echo "Conflict when unstashing; aborting." && exit 1)
-          fi
+          git rebase origin/main || (git rebase --abort && exit 1)
+          if git stash list | grep -q "ci-temp-stash"; then git stash pop || exit 1; fi
 
           git add -A
-          git diff --cached --quiet || git commit -m "Update README con estado de tests"
+          git diff --cached --quiet || git commit -m "Update README y documentación"
           git push origin HEAD:main
 
   deploy-docs:
@@ -82,9 +75,7 @@ jobs:
       - name: Generate HTML documentation
         run: |
           mkdir -p docs_html
-          MODULES=$(ls *.py | sed 's/.py$//')
-          echo "Documentando módulos: $MODULES"
-          pdoc --output-dir docs_html $MODULES
+          pdoc --output-dir docs_html src
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
