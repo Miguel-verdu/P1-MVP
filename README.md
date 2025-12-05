@@ -11,7 +11,40 @@
 
   * Enlace público a GitHub Pages donde se puede ver la documentación HTML: 
   https://miguel-verdu.github.io/P1-MVP/index.html
- 
+
+  * Mensajes de commit:
+
+  * Cómo clonar/usar el repositorio:
+  El repositorio está configurado para uso público, si se quiere clonar o usar este será necesario instalar los archivos mediante la interfaz de github o mediante el uso de comandos en Git.
+
+## Explicación del Workflow
+
+Cada vez que se sube un código, el workflow automáticamente genera y publica documentación web.
+
+📅 ¿Cuándo se activa?
+Al hacer push a la rama main o manualmente desde la web de GitHub
+
+🔧 ¿Qué hace?:
+1️⃣ Prepara el entorno
+Descarga el código
+
+Instala Python y demás herramientas necesarias
+
+2️⃣ Ejecuta los tests
+Corre pytest para verificar que todo funciona
+
+Actualiza el README.md con los resultados
+
+3️⃣ Genera documentación
+Convierte los comentarios de tu código ("""docstrings""") a páginas web
+
+4️⃣ Publicación online
+Sube las páginas generadas a GitHub Pages
+
+Quedan disponibles en el enlace dado anteriormente
+
+🌐 Resultado final:
+Documentación siempre actualizada sin que tengas que hacer nada manualmente.
 
 ## Cuestionario a responder
 
