@@ -135,7 +135,32 @@ Análisis:
 
 
 **g) Instalación/uso documentados. Indica dónde en el README.md explicas cómo acceder a la documentación publicada en GitHub Pages y dónde detallas las herramientas y comandos usados para generarla.**
+### Herramientas Utilizadas
+* pdoc 13+: Generación de documentación HTML
 
+* pytest: Ejecución de tests
+
+* GitHub Actions: CI/CD automático
+
+## 📚 Documentación
+
+### 🌐 Documentación Online
+La documentación está disponible en:  
+**https://[usuario].github.io/[repositorio]/**
+
+### 🛠️ Generación Local
+Para generar la documentación localmente:
+
+```bash
+# Instalar pdoc
+pip install pdoc
+
+# Generar documentación HTML
+pdoc --output-dir docs_html --html src/
+
+# Abrir en navegador
+open docs_html/src/main.html
+```
 
 **h) Integración continua y despliegue continuo (CI/CD). Justifica por qué el workflow utilizado implementa CI/CD.**
 
@@ -143,14 +168,14 @@ Análisis:
 **Justificación de CI/CD:**
 
 ### **CI (Integración Continua):**
-- ✅ **Tests automáticos**: `pytest` se ejecuta en cada push
-- ✅ **Build automático**: Generación de docs con cada cambio
-- ✅ **Validación**: README se actualiza con resultados
+- **Tests automáticos**: `pytest` se ejecuta en cada push
+- **Build automático**: Generación de docs con cada cambio
+- **Validación**: README se actualiza con resultados
 
 ### **CD (Despliegue Continuo):**
-- ✅ **Despliegue automático**: Docs se publican sin intervención
-- ✅ **Consistencia**: Docs siempre sincronizadas con código
-- ✅ **Disponibilidad**: Última versión siempre online
+- **Despliegue automático**: Docs se publican sin intervención
+- **Consistencia**: Docs siempre sincronizadas con código
+- **Disponibilidad**: Última versión siempre online
 
 **Evento disparador:**
 ```yaml
