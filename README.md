@@ -2,8 +2,6 @@
 
 ## Carta de presentación
 
-
-
   * Herramienta usada para generar documentación HTML y comandos ejecutados:
   La herrimienta que utilicé para la documentación fue pdoc.
 
@@ -46,7 +44,13 @@ Quedan disponibles en el enlace dado anteriormente
 Documentación siempre actualizada sin que tengas que hacer nada manualmente.
 
 ## Cuestionario a responder
+a) Identificación de herramientas de generación de documentación.
+La herramienta utilizada para la generación de documentación fue pdoc.
 
+b) Documentación de componentes.
+Un breve ejemplo en el archivo main.py sería lo siguiente: 
+      Returns:
+        str: Saludo formateado, por ejemplo "Hola, Mundo!"."""
 
 
 
