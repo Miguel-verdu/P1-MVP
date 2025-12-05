@@ -54,12 +54,24 @@ Un breve ejemplo en el archivo main.py sería lo siguiente:
         
 **c) Publicación en GitHub Pages.**
 
-* - name: 🚀 Publicar en GitHub Pages
-  uses: peaceiris/actions-gh-pages@v3
-  with:
-    github_token: ${{ secrets.GITHUB_TOKEN }}
-    publish_dir: docs_html/
-    force_orphan: true
+*Pasos clave:
+
+Acción peaceiris/actions-gh-pages@v3: Sube contenido a la rama gh-pages
+
+force_orphan: true: Limpia la rama gh-pages en cada despliegue
+
+GITHUB_TOKEN: Token automático con permisos de escritura
+
+Configuración en Settings → Pages:
+
+Source: Deploy from a branch
+
+Branch: gh-pages (creada automáticamente)
+
+Folder: / (root)
+
+
+
 
 **d) Colaboración. Explica cómo GitHub Pages facilita compartir documentación actualizada con el equipo y usuarios externos.**
 
