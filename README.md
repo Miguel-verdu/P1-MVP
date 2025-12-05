@@ -54,13 +54,13 @@ Un breve ejemplo en el archivo main.py sería lo siguiente:
         
 **c) Publicación en GitHub Pages.**
 
-- name: 🚀 Publicar en GitHub Pages
+```name: 🚀 Publicar en GitHub Pages
   uses: peaceiris/actions-gh-pages@v3
   with:
     github_token: ${{ secrets.GITHUB_TOKEN }}
     publish_dir: docs_html/
     force_orphan: true
-
+```
 ## Pasos clave:
 
 -Acción peaceiris/actions-gh-pages@v3: Sube contenido a la rama gh-pages
