@@ -25,6 +25,7 @@ Cada vez que se sube un código, el workflow automáticamente genera y publica d
 Al hacer push a la rama main o manualmente desde la web de GitHub
 
 🔧 ¿Qué hace?:
+
 1️⃣ Prepara el entorno
 Descarga el código
 
