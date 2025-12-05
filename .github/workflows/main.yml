@@ -1,4 +1,4 @@
-name: CI con AutoCommit
+name: CI con AutoCommit y Docs
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pages: write
 
 jobs:
   test-and-update:
@@ -23,10 +24,17 @@ jobs:
           python-version: '3.10'
 
       - name: Instalar dependencias
-        run: pip install pytest
+        run: |
+          pip install pytest
+          pip install pdoc
 
       - name: Ejecutar script de tests y actualizar README
         run: python update_readme.py
+
+      - name: Generar documentación HTML con pdoc
+        run: |
+          mkdir -p docs_html
+          pdoc --html --output-dir docs_html src  # Ajusta 'src' al directorio con tu código fuente
 
       - name: Sincronizar rama, guardar cambios locales, reorganizar (rebase), confirmar (commit) y enviar (push).
         env:
@@ -54,3 +62,32 @@ jobs:
           git add -A
           git diff --cached --quiet || git commit -m "Update README con estado de tests"
           git push origin HEAD:main
+
+  deploy-docs:
+    runs-on: ubuntu-latest
+    needs: test-and-update
+    permissions:
+      contents: read  # just for checkout
+      pages: write    # to deploy to Pages
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Configure Python (for pdoc compatibility, if ever needed)
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install pdoc
+        run: pip install pdoc
+
+      - name: Generate HTML documentation
+        run: |
+          mkdir -p docs_html
+          pdoc --html --output-dir docs_html src  # Ajusta 'src' al directorio con tu código fuente
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs_html
