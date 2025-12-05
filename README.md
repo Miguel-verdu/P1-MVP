@@ -44,13 +44,30 @@ Quedan disponibles en el enlace dado anteriormente
 Documentación siempre actualizada sin que tengas que hacer nada manualmente.
 
 ## Cuestionario a responder
-a) Identificación de herramientas de generación de documentación.
+**a) Identificación de herramientas de generación de documentación.**
 La herramienta utilizada para la generación de documentación fue pdoc.
 
-b) Documentación de componentes.
+**b) Documentación de componentes.**
 Un breve ejemplo en el archivo main.py sería lo siguiente: 
       Returns:
         str: Saludo formateado, por ejemplo "Hola, Mundo!"."""
+        
+**c) Publicación en GitHub Pages.**
+
+
+**d) Colaboración. Explica cómo GitHub Pages facilita compartir documentación actualizada con el equipo y usuarios externos.**
+
+
+**e) Control de versiones. Muestra mensajes de commit que evidencien la configuración del workflow de publicación.**
+
+
+**f) Accesibilidad y seguridad. ¿Cómo garantizas que la documentación en GitHub Pages es accesible públicamente pero el código fuente solo es accesible para personal autorizado?**
+
+
+**g) Instalación/uso documentados. Indica dónde en el README.md explicas cómo acceder a la documentación publicada en GitHub Pages y dónde detallas las herramientas y comandos usados para generarla.**
+
+
+**h) Integración continua y despliegue continuo (CI/CD). Justifica por qué el workflow utilizado implementa CI/CD.**
 
 
 
