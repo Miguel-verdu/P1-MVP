@@ -83,11 +83,11 @@ Un breve ejemplo en el archivo main.py sería lo siguiente:
 **d) Colaboración. Explica cómo GitHub Pages facilita compartir documentación actualizada con el equipo y usuarios externos.**
 
 
-Ventajas de GitHub Pages frente a archivos HTML en el repo:
- -URL pública permanente
- -Actualización automática	
- -Acceso desde cualquier dispositivo	
- -Índice automático y navegación	
+## Ventajas de GitHub Pages frente a archivos HTML en el repo:
+ * URL pública permanente
+ * Actualización automática	
+ * Acceso desde cualquier dispositivo	
+ * Índice automático y navegación	
 
  
 **e) Control de versiones. Muestra mensajes de commit que evidencien la configuración del workflow de publicación.**
