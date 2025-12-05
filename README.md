@@ -102,6 +102,25 @@ Un breve ejemplo en el archivo main.py sería lo siguiente:
 **h) Integración continua y despliegue continuo (CI/CD). Justifica por qué el workflow utilizado implementa CI/CD.**
 
 
+**Justificación de CI/CD:**
+
+### **CI (Integración Continua):**
+- ✅ **Tests automáticos**: `pytest` se ejecuta en cada push
+- ✅ **Build automático**: Generación de docs con cada cambio
+- ✅ **Validación**: README se actualiza con resultados
+
+### **CD (Despliegue Continuo):**
+- ✅ **Despliegue automático**: Docs se publican sin intervención
+- ✅ **Consistencia**: Docs siempre sincronizadas con código
+- ✅ **Disponibilidad**: Última versión siempre online
+
+**Evento disparador:**
+```yaml
+on:
+  push:
+    branches: [main]  # ← Se dispara con CADA push a main
+  workflow_dispatch:   # ← También manualmente
+
 
 ### README.md inicial   
 
