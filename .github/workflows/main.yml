@@ -28,29 +28,29 @@ jobs:
       - name: Ejecutar script de tests y actualizar README
         run: python update_readme.py
 
-      - name: Sync branch, stash local changes, rebase, commit and push
+      - name: Sincronizar rama, guardar cambios locales, reorganizar (rebase), confirmar (commit) y enviar (push).
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          # Use the token-backed URL so fetch/rebase/push are authenticated
+          # Usar la URL respaldada por token para que fetch/rebase/push estén autenticados
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
 
-          # Stash any unstaged/untracked changes so rebase can run cleanly.
-          # Using a unique stash message to detect it later.
+          # Guardar en stash cualquier cambio sin stage/rastrear para que el rebase se ejecute limpiamente.
+          # Usar un mensaje de stash único para detectarlo posteriormente.
           git stash push --include-untracked -m "ci-temp-stash" || true
 
-          # Bring origin/main up-to-date and rebase local commits (if any) on top of it.
+          # Actualizar origin/main y reorganizar (rebase) los commits locales (si existen) sobre ella.
           git fetch origin main
           git rebase origin/main || (git rebase --abort && { echo "Rebase failed"; exit 1; })
 
-          # Restore stashed changes (if any). If pop fails due to conflicts, fail the job so user intervention is required.
+          # Restaurar los cambios guardados en stash (si existen). Si el pop falla por conflictos, fallar el job para que se requiera intervención del usuario.
           if git stash list | grep -q "ci-temp-stash"; then
             git stash pop || (echo "Conflict when unstashing; aborting." && exit 1)
           fi
 
-          # Commit any changes produced by the script (if present) and push them.
+          # Confirmar (commit) cualquier cambio producido por el script (si existen) y enviarlos (push).
           git add -A
           git diff --cached --quiet || git commit -m "Update README con estado de tests"
           git push origin HEAD:main
