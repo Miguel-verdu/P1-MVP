@@ -7,7 +7,7 @@
   * Herramienta usada para generar documentación HTML y comandos ejecutados:
   La herrimienta que utilicé para la documentación fue pdoc.
 
-  * Ejemplos de código documentado (enlace a la fuente) y fragmento con las etiquetas/estructura usadas:
+  * Ejemplos de código documentado (enlace a la fuente) y fragmento con las etiquetas/estructura usadas: https://github.com/Miguel-verdu/P1-MVP/blob/main/src/main.py El fragmento es todo lo de en medio entre """, por ejemplo el Returns:
 
   * Enlace público a GitHub Pages donde se puede ver la documentación HTML: 
   https://miguel-verdu.github.io/P1-MVP/index.html
