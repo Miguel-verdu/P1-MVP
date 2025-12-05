@@ -28,7 +28,7 @@ jobs:
       - name: Ejecutar script de tests y actualizar README
         run: python update_readme.py
 
-      - name: Ensure branch is up-to-date with remote/main
+      - name: Sync branch, stash local changes, rebase, commit and push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -36,11 +36,21 @@ jobs:
           git config user.name "github-actions[bot]"
           # Use the token-backed URL so fetch/rebase/push are authenticated
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
-          git fetch origin main
-          git rebase origin/main
 
-      - name: Commit automático del README
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Update README con estado de tests"
-          file_pattern: README.md
+          # Stash any unstaged/untracked changes so rebase can run cleanly.
+          # Using a unique stash message to detect it later.
+          git stash push --include-untracked -m "ci-temp-stash" || true
+
+          # Bring origin/main up-to-date and rebase local commits (if any) on top of it.
+          git fetch origin main
+          git rebase origin/main || (git rebase --abort && { echo "Rebase failed"; exit 1; })
+
+          # Restore stashed changes (if any). If pop fails due to conflicts, fail the job so user intervention is required.
+          if git stash list | grep -q "ci-temp-stash"; then
+            git stash pop || (echo "Conflict when unstashing; aborting." && exit 1)
+          fi
+
+          # Commit any changes produced by the script (if present) and push them.
+          git add -A
+          git diff --cached --quiet || git commit -m "Update README con estado de tests"
+          git push origin HEAD:main
