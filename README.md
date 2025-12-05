@@ -12,8 +12,6 @@
   * Enlace público a GitHub Pages donde se puede ver la documentación HTML: 
   https://miguel-verdu.github.io/P1-MVP/index.html
 
-  * Mensajes de commit:
-
   * Cómo clonar/usar el repositorio:
   El repositorio está configurado para uso público, si se quiere clonar o usar este será necesario instalar los archivos mediante la interfaz de github o mediante el uso de comandos en Git.
 
