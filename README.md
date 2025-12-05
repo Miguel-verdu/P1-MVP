@@ -45,7 +45,7 @@ Documentación siempre actualizada sin que tengas que hacer nada manualmente.
 
 ## Cuestionario a responder
 **a) Identificación de herramientas de generación de documentación.**
-La herramienta utilizada para la generación de documentación fue pdoc.
+La herramienta utilizada para la generación de documentación fue pdoc version 13 o superior.
 
 **b) Documentación de componentes.**
 Un breve ejemplo en el archivo main.py sería lo siguiente: 
@@ -54,6 +54,12 @@ Un breve ejemplo en el archivo main.py sería lo siguiente:
         
 **c) Publicación en GitHub Pages.**
 
+* - name: 🚀 Publicar en GitHub Pages
+  uses: peaceiris/actions-gh-pages@v3
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: docs_html/
+    force_orphan: true
 
 **d) Colaboración. Explica cómo GitHub Pages facilita compartir documentación actualizada con el equipo y usuarios externos.**
 
