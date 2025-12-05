@@ -9,7 +9,7 @@
 
   * Ejemplos de código documentado (enlace a la fuente) y fragmento con las etiquetas/estructura usadas:
 
-  * Enlace público a GitHub Pages donde se puede ver la documentación HTML.
+  * Enlace público a GitHub Pages donde se puede ver la documentación HTML: 
   https://miguel-verdu.github.io/P1-MVP/index.html
  
 
