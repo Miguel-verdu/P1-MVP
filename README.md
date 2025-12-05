@@ -95,7 +95,19 @@ Un breve ejemplo en el archivo main.py sería lo siguiente:
 ### Mensajes de commit generados por el workflow:
 
 ```"Update README y documentación [skip ci]"```
+Análisis:
 
+✅ Claro: Indica qué se actualizó
+
+✅ Descriptivo: Menciona ambos elementos modificados
+
+❌ Mejorable: Podría ser más específico:
+
+"📚 Actualiza docs con pdoc - v1.0.0"
+
+"🔧 CI: Actualiza README con resultados de tests"
+
+✅ [skip ci]: Previene bucles infinitos de ejecución
  
 **f) Accesibilidad y seguridad. ¿Cómo garantizas que la documentación en GitHub Pages es accesible públicamente pero el código fuente solo es accesible para personal autorizado?**
 
