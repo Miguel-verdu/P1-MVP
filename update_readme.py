@@ -2,7 +2,7 @@ import subprocess
 
 def run_tests():
     try:
-        subprocess.check_call(["pytest", "-q"])
+        subprocess.check_call(["python", "-m", "pytest", "-q"])
         return "✅ Tests correctos"
     except subprocess.CalledProcessError:
         return "❌ Tests fallidos"
